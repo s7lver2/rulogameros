@@ -10,13 +10,28 @@ profile/airootfs/usr/share/backgrounds/rulogameros/
 ## 1. Añadir/cambiar fotos del pack de fondos
 
 Copia tus imágenes (`.jpg`/`.png`) a esa carpeta. `scripts/set-wallpaper.sh` las
-detecta automáticamente (usa la primera en orden alfabético por defecto, o
-`--random` para rotar entre todas):
+detecta automáticamente (usa la primera en orden alfabético por defecto,
+`--random` para rotar entre todas, o `--pick` para elegirla a mano):
 
 ```bash
 cp mi_foto.jpg profile/airootfs/usr/share/backgrounds/rulogameros/rulogameros-14.jpg
 ./scripts/set-wallpaper.sh --random
 ```
+
+### Selector de fondos con vista previa
+
+Para elegir la foto a mano en vez de que rote sola, RuloGamerOS trae un
+selector gráfico: **"Selector de fondos de RuloGamerOS"** en el menú de
+aplicaciones (búscalo por "fondo" en el lanzador de KDE), o desde terminal:
+
+```bash
+rulogameros-set-wallpaper.sh --pick
+```
+
+Abre el diálogo de archivos de KDE (`kdialog`) ya colocado en la carpeta del
+pack, con miniaturas de cada foto, y aplica la que elijas al momento. El
+lanzador vive en `profile/airootfs/usr/share/applications/rulogameros-wallpaper-picker.desktop`
+y necesita el paquete `kde-cli-tools` (ya incluido en `profile/packages.x86_64`).
 
 ## 2. Regenerar el logo, splash, GRUB y pantalla de login/bloqueo
 

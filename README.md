@@ -8,6 +8,8 @@ Incluye de fábrica:
   con un clic desde el escritorio (ver `docs/GAMES.md`).
 - 🖼️ **Branding completo con tus fotos**: fondos de pantalla, logo, splash de arranque
   (Plymouth), **pantalla de login y de bloqueo** (SDDM/KDE) y **tema de GRUB**.
+- 🎞️ **Selector de fondos** con vista previa (menú de aplicaciones o
+  `rulogameros-set-wallpaper.sh --pick`) para elegir la foto a mano.
 - 🖱️ **El cursor es literalmente una foto recortada** (sin máscara, sin suavizar):
   se ve como el culo a propósito, y así se mueve por toda la pantalla.
 - 📸 **`fastfetch` con foto real** (no ASCII) al azar del pack, renderizada con el
@@ -91,7 +93,7 @@ git clone <este-repo>
 cd rulogameros
 sudo ./scripts/setup-wheel.sh
 sudo ./scripts/setup-games.sh
-sudo ./scripts/setup-branding.sh   # logo, cursor, login/bloqueo, GRUB, sonidos, bienvenida y fondo
+sudo ./scripts/setup-branding.sh   # logo, cursor, login/bloqueo, GRUB, sonidos, bienvenida, fondo y su selector
 ```
 
 Más detalles: [`docs/WHEELS.md`](docs/WHEELS.md), [`docs/GAMES.md`](docs/GAMES.md),
