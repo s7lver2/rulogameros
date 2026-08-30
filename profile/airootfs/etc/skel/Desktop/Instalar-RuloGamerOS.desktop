@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Instalar RuloGamerOS
+Comment=Instalador guiado: pone RuloGamerOS en el disco duro
+Exec=kitty --hold -e sudo /usr/local/bin/rulogameros-install
+Icon=/usr/share/sddm/themes/rulogameros/logo.png
+Terminal=false
+Categories=System;

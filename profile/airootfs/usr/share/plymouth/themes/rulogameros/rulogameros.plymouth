@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=RuloGamerOS
+Description=Splash de arranque personalizado de RuloGamerOS
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/rulogameros
+ScriptFile=/usr/share/plymouth/themes/rulogameros/rulogameros.script

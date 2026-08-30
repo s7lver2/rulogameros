@@ -1,0 +1,55 @@
+# Paquetes extra que se añaden al perfil "releng" de archiso para construir RuloGamerOS.
+# Se concatenan con el packages.x86_64 oficial de /usr/share/archiso/configs/releng.
+
+# --- Escritorio ---
+plasma-desktop
+plasma-nm
+sddm
+konsole
+kitty
+ttf-jetbrains-mono-nerd
+dolphin
+firefox
+plymouth
+fastfetch
+
+# --- Volantes / periféricos de simracing ---
+oversteer
+dkms
+linux-headers
+python-evdev
+joyutils
+sdl2
+
+# --- Gaming: Steam, Proton, tiendas ---
+steam
+lutris
+wine
+winetricks
+gamemode
+lib32-gamemode
+mangohud
+lib32-mangohud
+vulkan-icd-loader
+lib32-vulkan-icd-loader
+
+# --- Branding / apariencia ---
+grub
+qt5-graphicaleffects
+qt5-quickcontrols2
+mpv
+espeak-ng
+ffmpeg
+imagemagick
+libcanberra
+
+# --- Instalador (ya suelen venir en releng, se listan por si acaso) ---
+arch-install-scripts
+gptfdisk
+parted
+dosfstools
+
+# --- Utilidades ---
+git
+feh
+networkmanager
