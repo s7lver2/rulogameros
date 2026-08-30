@@ -24,6 +24,20 @@ Incluye de fábrica:
 > de la ISO. RuloGamerOS deja Steam instalado y configurado para que, con tu cuenta,
 > se instalen con un solo clic (ver `docs/GAMES.md`).
 
+## Así se ve
+
+> Mockups fieles a los temas reales del repo (mismos colores, mismo layout, mismas
+> fotos) renderizados con Chromium — no son capturas de una instalación real, ver
+> [`docs/PREVIEW.md`](docs/PREVIEW.md) para el porqué y cómo regenerarlos cuando
+> tengas una build de verdad.
+
+| | |
+|---|---|
+| ![Login (SDDM)](docs/preview/login.png) | ![Menú de arranque (GRUB)](docs/preview/grub.png) |
+| **Login / pantalla de bloqueo** | **Menú de GRUB** |
+| ![Escritorio con fastfetch en Kitty](docs/preview/desktop.png) | ![El cursor es una foto](docs/preview/cursor.png) |
+| **Escritorio + `fastfetch` con foto real** | **El cursor, literalmente una foto** |
+
 ## Estructura del repo
 
 ```

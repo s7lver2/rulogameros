@@ -21,8 +21,9 @@ cp mi_foto.jpg profile/airootfs/usr/share/backgrounds/rulogameros/rulogameros-14
 ## 2. Regenerar el logo, splash, GRUB y pantalla de login/bloqueo
 
 `scripts/prepare-branding.sh` recorta un logo circular y genera los fondos de
-pantalla completa a partir de dos fotos del pack (por defecto la 01 para el logo
-y la 02 para los fondos de login/GRUB). Puedes elegir otras dos fotos:
+pantalla completa a partir de dos fotos del pack (por defecto la 03 —la del
+selfie con la pantalla rota— para el logo, y la 02 para los fondos de
+login/GRUB). Puedes elegir otras dos fotos:
 
 ```bash
 sudo pacman -S --needed imagemagick   # si no lo tienes
@@ -47,7 +48,7 @@ Esto regenera:
 El cursor `RuloGamerOS-Cursor` **no es un cursor de verdad**: es una foto del
 pack recortada en cuadrado (sin máscara circular, sin suavizar, sin nada) y
 convertida a formato de cursor X11 con `xcursorgen`. Es feo a propósito — esa
-es la idea. Por defecto usa `rulogameros-04.jpg` (la del selfie con la
+es la idea. Por defecto usa `rulogameros-03.jpg` (la del selfie con la
 pantalla rota), que ya tiene la pinta perfecta para esto.
 
 Para cambiar la foto:

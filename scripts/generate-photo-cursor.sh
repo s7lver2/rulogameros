@@ -19,9 +19,9 @@ THEME_DIR="$REPO_ROOT/profile/airootfs/usr/share/icons/RuloGamerOS-Cursor"
 CURSORS_DIR="$THEME_DIR/cursors"
 
 # Foto a usar de cursor. Por defecto la del selfie con la pantalla rota
-# (rulogameros-04.jpg): ya tiene pinta de mierda de por sí, perfecta para esto.
+# (rulogameros-03.jpg): ya tiene pinta de mierda de por sí, perfecta para esto.
 # Pásale otra ruta como argumento si quieres cambiarla.
-PHOTO="${1:-$WALLPAPERS_DIR/rulogameros-04.jpg}"
+PHOTO="${1:-$WALLPAPERS_DIR/rulogameros-03.jpg}"
 [[ -f "$PHOTO" ]] || { echo "No existe la foto: $PHOTO" >&2; exit 1; }
 
 TMP_DIR="$(mktemp -d)"
