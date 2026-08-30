@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Wrapper de fastfetch para RuloGamerOS: en vez del logo de Arch, renderiza
+# una foto real al azar del pack de fondos usando el protocolo gráfico de
+# Kitty (imagen de verdad, no ASCII). Requiere el terminal Kitty (o cualquier
+# otro que soporte el protocolo kitty, como Konsole/WezTerm recientes).
+# Vive en /usr/local/bin, que va antes que /usr/bin en el PATH, así que
+# sustituye al `fastfetch` real (instalado por pacman en /usr/bin/fastfetch)
+# sin tocar el paquete.
+set -euo pipefail
+
+WALLPAPERS_DIR="/usr/share/backgrounds/rulogameros"
+REAL_FASTFETCH="/usr/bin/fastfetch"
+
+if [[ -d "$WALLPAPERS_DIR" ]] && compgen -G "$WALLPAPERS_DIR/*.jpg" > /dev/null; then
+  PHOTO="$(find "$WALLPAPERS_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' \) | shuf -n1)"
+  exec "$REAL_FASTFETCH" --logo "$PHOTO" --logo-type kitty --logo-width 30 --logo-height 16 "$@"
+else
+  exec "$REAL_FASTFETCH" "$@"
+fi

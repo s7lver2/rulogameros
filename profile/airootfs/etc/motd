@@ -6,7 +6,9 @@
 ██║  ██║╚██████╔╝███████╗╚██████╔╝╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗██║  ██║╚██████╔╝███████║
 ╚═╝  ╚═╝ ╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
 
-  Volante conectado -> ejecuta: oversteer
+  Volante conectado  -> ejecuta: oversteer
   Instalar juegos    -> ejecuta: steam  (Assetto Corsa / Counter-Strike 2)
-  Cambiar fondo      -> ejecuta: rulogameros-set-wallpaper.sh
+  Cambiar fondo      -> ejecuta: rulogameros-set-wallpaper.sh --random
+  Info del sistema   -> ejecuta: fastfetch  (foto real vía Kitty)
+  Instalar en disco  -> ejecuta: sudo rulogameros-install
 

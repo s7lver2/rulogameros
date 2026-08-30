@@ -6,9 +6,12 @@ plasma-desktop
 plasma-nm
 sddm
 konsole
+kitty
+ttf-jetbrains-mono-nerd
 dolphin
 firefox
 plymouth
+fastfetch
 
 # --- Volantes / periféricos de simracing ---
 oversteer
@@ -34,9 +37,19 @@ lib32-vulkan-icd-loader
 grub
 qt5-graphicaleffects
 qt5-quickcontrols2
+mpv
+espeak-ng
+ffmpeg
+imagemagick
+libcanberra
+
+# --- Instalador (ya suelen venir en releng, se listan por si acaso) ---
+arch-install-scripts
+gptfdisk
+parted
+dosfstools
 
 # --- Utilidades ---
 git
 feh
-neofetch
 networkmanager

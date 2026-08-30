@@ -73,4 +73,35 @@ cat > /etc/skel/.config/rulogameros-wallpaper <<'EOF'
 /usr/share/backgrounds/rulogameros/rulogameros-01.jpg
 EOF
 
+# --- Kitty como terminal por defecto (fastfetch necesita su protocolo gráfico) ---
+mkdir -p /etc/skel/.config
+echo "kitty.desktop" > /etc/skel/.config/xdg-terminals.list
+cat >> /etc/skel/.config/kdeglobals <<'EOF'
+
+[General]
+TerminalApplication=kitty
+TerminalService=kitty.desktop
+EOF
+
+# --- Tema de sonidos en ruso (generado por scripts/generate-russian-sounds.sh) ---
+if [[ -d /usr/share/sounds/RuloGamerOS ]]; then
+  mkdir -p /usr/share/sounds/default
+  cat > /usr/share/sounds/default/index.theme <<'EOF'
+[Sound Theme]
+Name=Default
+Inherits=RuloGamerOS
+Directories=stereo
+[stereo]
+OutputProfile=stereo
+EOF
+  cat >> /etc/skel/.config/kdeglobals <<'EOF'
+
+[Sounds]
+Theme=RuloGamerOS
+EOF
+fi
+
+# --- Animación de bienvenida en el primer login (ver generate-welcome-video.sh) ---
+chmod +x /usr/local/bin/rulogameros-welcome.sh 2>/dev/null || true
+chmod +x /usr/local/bin/fastfetch 2>/dev/null || true
 chmod +x /usr/local/bin/rulogameros-set-wallpaper.sh 2>/dev/null || true

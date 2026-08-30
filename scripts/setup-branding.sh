@@ -17,8 +17,14 @@ command -v convert >/dev/null 2>&1 || pacman -S --needed --noconfirm imagemagick
 [[ -f "$AIROOTFS/usr/share/sddm/themes/rulogameros/background.jpg" ]] \
   || "$REPO_ROOT/scripts/prepare-branding.sh"
 
-echo "==> Instalando SDDM, GRUB y cursor base..."
-pacman -S --needed --noconfirm sddm grub qt5-graphicaleffects qt5-quickcontrols2
+[[ -d "$AIROOTFS/usr/share/sounds/RuloGamerOS" ]] || "$REPO_ROOT/scripts/generate-russian-sounds.sh"
+[[ -f "$AIROOTFS/usr/share/rulogameros/welcome/welcome.mp4" ]] \
+  || "$REPO_ROOT/scripts/generate-welcome-video.sh" || echo "AVISO: no se pudo generar el vídeo de bienvenida (opcional)."
+
+echo "==> Instalando SDDM, GRUB, cursor base, fastfetch, kitty, mpv y espeak-ng..."
+pacman -S --needed --noconfirm \
+  sddm grub qt5-graphicaleffects qt5-quickcontrols2 \
+  fastfetch kitty ttf-jetbrains-mono-nerd mpv espeak-ng ffmpeg libcanberra
 if ! command -v yay >/dev/null 2>&1; then
   BUILD_USER="${SUDO_USER:-root}"
   su - "$BUILD_USER" -c '
@@ -39,6 +45,25 @@ mkdir -p /usr/share/icons/RuloGamerOS-Cursor
 cp "$AIROOTFS/usr/share/icons/RuloGamerOS-Cursor/index.theme" /usr/share/icons/RuloGamerOS-Cursor/
 mkdir -p /boot/grub/themes
 cp -r "$AIROOTFS/boot/grub/themes/rulogameros" /boot/grub/themes/
+
+echo "==> Instalando fastfetch/kitty personalizados, tema de sonidos y vídeo de bienvenida..."
+install -m755 "$AIROOTFS/usr/local/bin/fastfetch" /usr/local/bin/fastfetch
+install -m755 "$AIROOTFS/usr/local/bin/rulogameros-welcome.sh" /usr/local/bin/rulogameros-welcome.sh
+install -m755 "$AIROOTFS/usr/local/bin/rulogameros-set-wallpaper.sh" /usr/local/bin/rulogameros-set-wallpaper.sh
+mkdir -p /etc/xdg/autostart
+cp "$AIROOTFS/etc/xdg/autostart/rulogameros-welcome.desktop" /etc/xdg/autostart/
+mkdir -p /usr/share/rulogameros
+cp -r "$AIROOTFS/usr/share/rulogameros/welcome" /usr/share/rulogameros/ 2>/dev/null || true
+cp -r "$AIROOTFS/usr/share/sounds/RuloGamerOS" /usr/share/sounds/ 2>/dev/null || true
+mkdir -p /usr/share/sounds/default
+cat > /usr/share/sounds/default/index.theme <<'EOF'
+[Sound Theme]
+Name=Default
+Inherits=RuloGamerOS
+Directories=stereo
+[stereo]
+OutputProfile=stereo
+EOF
 
 echo "==> Configurando SDDM (login) y cursor..."
 mkdir -p /etc/sddm.conf.d
@@ -64,6 +89,19 @@ EOF
 Image=/usr/share/sddm/themes/rulogameros/background.jpg
 FillMode=2
 EOF
+  echo "kitty.desktop" > "$TARGET_HOME/.config/xdg-terminals.list"
+  cat >> "$TARGET_HOME/.config/kdeglobals" <<'EOF'
+
+[General]
+TerminalApplication=kitty
+TerminalService=kitty.desktop
+
+[Sounds]
+Theme=RuloGamerOS
+EOF
+  mkdir -p "$TARGET_HOME/.config/fastfetch" "$TARGET_HOME/.config/kitty"
+  cp "$AIROOTFS/etc/skel/.config/fastfetch/config.jsonc" "$TARGET_HOME/.config/fastfetch/"
+  cp "$AIROOTFS/etc/skel/.config/kitty/kitty.conf" "$TARGET_HOME/.config/kitty/"
   chown -R "$TARGET_USER":"$TARGET_USER" "$TARGET_HOME/.config" "$TARGET_HOME/.icons"
 fi
 
