@@ -94,7 +94,18 @@ mkdir -p "$MNT/opt/rulogameros"
 cp -r "$REPO_ROOT/." "$MNT/opt/rulogameros/"
 
 echo "==> Configurando el sistema dentro del chroot..."
-arch-chroot "$MNT" /bin/bash <<CHROOT_EOF
+# El heredoc va con delimitador entre comillas ('CHROOT_EOF_Q') para que bash
+# NO expanda aquí las variables (evita que una contraseña con $, comillas o
+# backticks rompa o inyecte comandos en el script). En su lugar se pasan como
+# variables de entorno reales al bash que corre dentro del chroot.
+arch-chroot "$MNT" env \
+  HOSTNAME_INPUT="$HOSTNAME_INPUT" \
+  USERNAME_INPUT="$USERNAME_INPUT" \
+  USER_PASSWORD="$USER_PASSWORD" \
+  TIMEZONE="$TIMEZONE" \
+  BOOT_MODE="$BOOT_MODE" \
+  DISK="$DISK" \
+  /bin/bash <<'CHROOT_EOF_Q'
 set -e
 ln -sf "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
 hwclock --systohc
@@ -109,9 +120,9 @@ cat > /etc/hosts <<HOSTS_EOF
 127.0.1.1   $HOSTNAME_INPUT.localdomain $HOSTNAME_INPUT
 HOSTS_EOF
 
-echo "root:$USER_PASSWORD" | chpasswd
+printf 'root:%s\n' "$USER_PASSWORD" | chpasswd
 useradd -m -G wheel,input -s /bin/bash "$USERNAME_INPUT"
-echo "$USERNAME_INPUT:$USER_PASSWORD" | chpasswd
+printf '%s:%s\n' "$USERNAME_INPUT" "$USER_PASSWORD" | chpasswd
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 if [[ "$BOOT_MODE" == uefi ]]; then
@@ -127,7 +138,7 @@ chmod +x /opt/rulogameros/scripts/*.sh
 /opt/rulogameros/scripts/setup-wheel.sh || echo "AVISO: setup-wheel.sh falló, revisa docs/WHEELS.md más tarde."
 SUDO_USER="$USERNAME_INPUT" /opt/rulogameros/scripts/setup-games.sh || echo "AVISO: setup-games.sh falló, revisa docs/GAMES.md más tarde."
 SUDO_USER="$USERNAME_INPUT" /opt/rulogameros/scripts/setup-branding.sh || echo "AVISO: setup-branding.sh falló, revisa docs/CUSTOMIZE.md más tarde."
-CHROOT_EOF
+CHROOT_EOF_Q
 
 echo "==> Desmontando..."
 umount -R "$MNT"

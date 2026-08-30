@@ -38,6 +38,11 @@ userdel -r builder
 rm -f /etc/sudoers.d/builder
 
 # --- Plymouth theme de arranque personalizado ---
+# El paquete y el tema no bastan: sin el hook "plymouth" en mkinitcpio.conf,
+# plymouthd nunca arranca en el initramfs y no se ve nada en el boot.
+if [[ -f /etc/mkinitcpio.conf ]] && ! grep -q 'plymouth' /etc/mkinitcpio.conf; then
+  sed -i '/^HOOKS=/ s/\budev\b/udev plymouth/' /etc/mkinitcpio.conf
+fi
 plymouth-set-default-theme -R rulogameros || true
 
 # --- Tema de GRUB personalizado ---
