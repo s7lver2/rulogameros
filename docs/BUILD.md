@@ -3,11 +3,11 @@
 ## Requisitos
 
 - Una máquina o VM con **Arch Linux** ya instalado (puede ser una VM desechable).
-- Paquetes: `archiso`, `imagemagick`, `ffmpeg`, `espeak-ng`, `git`, `libisoburn` (trae `xorriso`, opcional pero recomendado para el icono de la ISO).
+- Paquetes: `archiso`, `imagemagick`, `ffmpeg`, `espeak-ng`, `xorg-xcursorgen`, `git`, `libisoburn` (trae `xorriso`, opcional pero recomendado para el icono de la ISO).
 - ~15 GB libres y conexión a internet (descarga todos los paquetes del sistema base).
 
 ```bash
-sudo pacman -S --needed archiso imagemagick ffmpeg espeak-ng libisoburn git
+sudo pacman -S --needed archiso imagemagick ffmpeg espeak-ng xorg-xcursorgen libisoburn git
 ```
 
 ## Pasos

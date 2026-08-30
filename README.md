@@ -7,8 +7,9 @@ Incluye de fábrica:
 - 🎮 **Steam + Proton + Lutris** listos para instalar y jugar **Assetto Corsa** y **Counter-Strike 2**
   con un clic desde el escritorio (ver `docs/GAMES.md`).
 - 🖼️ **Branding completo con tus fotos**: fondos de pantalla, logo, splash de arranque
-  (Plymouth), **pantalla de login y de bloqueo** (SDDM/KDE), **tema de GRUB** y un
-  **cursor propio** (`RuloGamerOS-Cursor`).
+  (Plymouth), **pantalla de login y de bloqueo** (SDDM/KDE) y **tema de GRUB**.
+- 🖱️ **El cursor es literalmente una foto recortada** (sin máscara, sin suavizar):
+  se ve como el culo a propósito, y así se mueve por toda la pantalla.
 - 📸 **`fastfetch` con foto real** (no ASCII) al azar del pack, renderizada con el
   protocolo gráfico de **Kitty** (terminal por defecto).
 - 🇷🇺 **Sonidos de sistema en ruso**: en vez de un "ding", el sistema te insulta
@@ -39,6 +40,7 @@ rulogameros/
 │   ├── setup-branding.sh       # Aplica TODO el branding sobre un Arch ya instalado
 │   ├── set-wallpaper.sh        # Aplica/rota el pack de fondos personalizados
 │   ├── prepare-branding.sh     # Genera logo, splash, fondo de login/GRUB
+│   ├── generate-photo-cursor.sh    # Cursor = una foto recortada, sin más
 │   ├── generate-russian-sounds.sh  # Tema de sonidos con insultos en ruso (espeak-ng)
 │   ├── generate-welcome-video.sh   # Vídeo de bienvenida con efectos ridículos
 │   └── generate-iso-icon.sh        # Icono .ico + autorun.inf para la ISO/USB
@@ -56,7 +58,7 @@ rulogameros/
 Necesitas una máquina (o VM) con **Arch Linux** instalado:
 
 ```bash
-sudo pacman -S --needed archiso imagemagick ffmpeg espeak-ng libisoburn git
+sudo pacman -S --needed archiso imagemagick ffmpeg espeak-ng xorg-xcursorgen libisoburn git
 git clone <este-repo>
 cd rulogameros
 sudo ./build.sh

@@ -42,20 +42,30 @@ Esto regenera:
 - **Si ya tienes RuloGamerOS instalado**: ejecuta `sudo ./scripts/setup-branding.sh`
   de nuevo, copia los ficheros regenerados al sistema y reconstruye `grub.cfg`.
 
-## 4. Cambiar el cursor
+## 4. Cambiar el cursor (literalmente una foto)
 
-El cursor (`RuloGamerOS-Cursor`) es un rebranding de
-[Bibata-Modern-Amber](https://github.com/ful1e5/Bibata_Cursor) mediante herencia
-de tema de iconos (`profile/airootfs/usr/share/icons/RuloGamerOS-Cursor/index.theme`).
-Para usar otra paleta de Bibata (o cualquier otro cursor instalado), edita la
-línea `Inherits=` de ese archivo, por ejemplo:
+El cursor `RuloGamerOS-Cursor` **no es un cursor de verdad**: es una foto del
+pack recortada en cuadrado (sin máscara circular, sin suavizar, sin nada) y
+convertida a formato de cursor X11 con `xcursorgen`. Es feo a propósito — esa
+es la idea. Por defecto usa `rulogameros-04.jpg` (la del selfie con la
+pantalla rota), que ya tiene la pinta perfecta para esto.
 
-```ini
-Inherits=Bibata-Modern-Ice
+Para cambiar la foto:
+
+```bash
+sudo pacman -S --needed imagemagick xorg-xcursorgen   # si no los tienes
+./scripts/generate-photo-cursor.sh profile/airootfs/usr/share/backgrounds/rulogameros/rulogameros-09.jpg
 ```
 
-Paletas disponibles en el paquete AUR `bibata-cursor-theme-bin`: `Bibata-Modern-Classic`,
-`Bibata-Modern-Ice`, `Bibata-Modern-Amber`, `Bibata-Original-Classic`, etc.
+El script (`scripts/generate-photo-cursor.sh`) genera varios tamaños (24 a 96px)
+y enlaza todos los nombres de cursor habituales (flecha, texto, espera,
+redimensionar, mano...) al mismo archivo, así que **cualquier** puntero del
+sistema se ve como esa foto, sea cual sea la acción. El hotspot (el punto
+exacto donde "clicas") está fijado en la esquina superior izquierda de la
+foto, como un cursor normal — si no, sería inutilizable.
+
+Aplica los cambios con `sudo ./build.sh` (ISO) o `sudo ./scripts/setup-branding.sh`
+(sistema ya instalado).
 
 ## 5. Cambiar el texto/colores del tema de GRUB
 

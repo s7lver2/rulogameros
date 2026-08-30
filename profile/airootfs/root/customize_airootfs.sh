@@ -30,8 +30,6 @@ su - builder -c '
   cd /tmp/yay-bin && makepkg -si --noconfirm
   # Drivers de force-feedback para volantes Logitech (G25/G27/G29/G920, etc.)
   yay -S --noconfirm new-lg4ff-dkms-git || echo "AVISO: no se pudo compilar new-lg4ff, revisa docs/WHEELS.md"
-  # Cursor base sobre el que se rebrandea RuloGamerOS-Cursor (ver index.theme).
-  yay -S --noconfirm bibata-cursor-theme-bin || echo "AVISO: no se pudo instalar el cursor base, revisa docs/CUSTOMIZE.md"
 '
 
 userdel -r builder

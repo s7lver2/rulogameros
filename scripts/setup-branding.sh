@@ -21,28 +21,20 @@ command -v convert >/dev/null 2>&1 || pacman -S --needed --noconfirm imagemagick
 [[ -f "$AIROOTFS/usr/share/rulogameros/welcome/welcome.mp4" ]] \
   || "$REPO_ROOT/scripts/generate-welcome-video.sh" || echo "AVISO: no se pudo generar el vídeo de bienvenida (opcional)."
 
-echo "==> Instalando SDDM, GRUB, cursor base, fastfetch, kitty, mpv y espeak-ng..."
+echo "==> Instalando SDDM, GRUB, fastfetch, kitty, mpv, espeak-ng y xcursorgen..."
 pacman -S --needed --noconfirm \
   sddm grub qt5-graphicaleffects qt5-quickcontrols2 \
-  fastfetch kitty ttf-jetbrains-mono-nerd mpv espeak-ng ffmpeg libcanberra
-if ! command -v yay >/dev/null 2>&1; then
-  BUILD_USER="${SUDO_USER:-root}"
-  su - "$BUILD_USER" -c '
-    set -e
-    tmp=$(mktemp -d)
-    git clone https://aur.archlinux.org/yay-bin.git "$tmp"
-    cd "$tmp" && makepkg -si --noconfirm
-  '
-fi
-BUILD_USER="${SUDO_USER:-root}"
-su - "$BUILD_USER" -c 'yay -S --needed --noconfirm bibata-cursor-theme-bin'
+  fastfetch kitty ttf-jetbrains-mono-nerd mpv espeak-ng ffmpeg libcanberra xorg-xcursorgen
+
+[[ -f "$AIROOTFS/usr/share/icons/RuloGamerOS-Cursor/cursors/default" ]] \
+  || "$REPO_ROOT/scripts/generate-photo-cursor.sh"
 
 echo "==> Copiando fondos, logo, tema de login/bloqueo y tema de GRUB..."
 cp -r "$AIROOTFS/usr/share/backgrounds/rulogameros" /usr/share/backgrounds/
 cp -r "$AIROOTFS/usr/share/sddm/themes/rulogameros" /usr/share/sddm/themes/
 cp -r "$AIROOTFS/usr/share/plymouth/themes/rulogameros" /usr/share/plymouth/themes/ 2>/dev/null || true
-mkdir -p /usr/share/icons/RuloGamerOS-Cursor
-cp "$AIROOTFS/usr/share/icons/RuloGamerOS-Cursor/index.theme" /usr/share/icons/RuloGamerOS-Cursor/
+rm -rf /usr/share/icons/RuloGamerOS-Cursor
+cp -r "$AIROOTFS/usr/share/icons/RuloGamerOS-Cursor" /usr/share/icons/
 mkdir -p /boot/grub/themes
 cp -r "$AIROOTFS/boot/grub/themes/rulogameros" /boot/grub/themes/
 
