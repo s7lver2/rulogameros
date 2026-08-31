@@ -30,14 +30,17 @@ su - builder -c '
   cd /tmp/yay-bin && makepkg -si --noconfirm
   # Drivers de force-feedback para volantes Logitech (G25/G27/G29/G920, etc.)
   yay -S --noconfirm new-lg4ff-dkms-git || echo "AVISO: no se pudo compilar new-lg4ff, revisa docs/WHEELS.md"
-  # Cursor base sobre el que se rebrandea RuloGamerOS-Cursor (ver index.theme).
-  yay -S --noconfirm bibata-cursor-theme-bin || echo "AVISO: no se pudo instalar el cursor base, revisa docs/CUSTOMIZE.md"
 '
 
 userdel -r builder
 rm -f /etc/sudoers.d/builder
 
 # --- Plymouth theme de arranque personalizado ---
+# El paquete y el tema no bastan: sin el hook "plymouth" en mkinitcpio.conf,
+# plymouthd nunca arranca en el initramfs y no se ve nada en el boot.
+if [[ -f /etc/mkinitcpio.conf ]] && ! grep -q 'plymouth' /etc/mkinitcpio.conf; then
+  sed -i '/^HOOKS=/ s/\budev\b/udev plymouth/' /etc/mkinitcpio.conf
+fi
 plymouth-set-default-theme -R rulogameros || true
 
 # --- Tema de GRUB personalizado ---

@@ -7,8 +7,11 @@ Incluye de fábrica:
 - 🎮 **Steam + Proton + Lutris** listos para instalar y jugar **Assetto Corsa** y **Counter-Strike 2**
   con un clic desde el escritorio (ver `docs/GAMES.md`).
 - 🖼️ **Branding completo con tus fotos**: fondos de pantalla, logo, splash de arranque
-  (Plymouth), **pantalla de login y de bloqueo** (SDDM/KDE), **tema de GRUB** y un
-  **cursor propio** (`RuloGamerOS-Cursor`).
+  (Plymouth), **pantalla de login y de bloqueo** (SDDM/KDE) y **tema de GRUB**.
+- 🎞️ **Selector de fondos** con vista previa (menú de aplicaciones o
+  `rulogameros-set-wallpaper.sh --pick`) para elegir la foto a mano.
+- 🖱️ **El cursor es literalmente una foto recortada** (sin máscara, sin suavizar):
+  se ve como el culo a propósito, y así se mueve por toda la pantalla.
 - 📸 **`fastfetch` con foto real** (no ASCII) al azar del pack, renderizada con el
   protocolo gráfico de **Kitty** (terminal por defecto).
 - 🇷🇺 **Sonidos de sistema en ruso**: en vez de un "ding", el sistema te insulta
@@ -22,6 +25,20 @@ Incluye de fábrica:
 > Los juegos (Assetto Corsa, CS2) son de pago/con DRM y no se pueden redistribuir dentro
 > de la ISO. RuloGamerOS deja Steam instalado y configurado para que, con tu cuenta,
 > se instalen con un solo clic (ver `docs/GAMES.md`).
+
+## Así se ve
+
+> Mockups fieles a los temas reales del repo (mismos colores, mismo layout, mismas
+> fotos) renderizados con Chromium — no son capturas de una instalación real, ver
+> [`docs/PREVIEW.md`](docs/PREVIEW.md) para el porqué y cómo regenerarlos cuando
+> tengas una build de verdad.
+
+| | |
+|---|---|
+| ![Login (SDDM)](docs/preview/login.png) | ![Menú de arranque (GRUB)](docs/preview/grub.png) |
+| **Login / pantalla de bloqueo** | **Menú de GRUB** |
+| ![Escritorio con fastfetch en Kitty](docs/preview/desktop.png) | ![El cursor es una foto](docs/preview/cursor.png) |
+| **Escritorio + `fastfetch` con foto real** | **El cursor, literalmente una foto** |
 
 ## Estructura del repo
 
@@ -39,6 +56,7 @@ rulogameros/
 │   ├── setup-branding.sh       # Aplica TODO el branding sobre un Arch ya instalado
 │   ├── set-wallpaper.sh        # Aplica/rota el pack de fondos personalizados
 │   ├── prepare-branding.sh     # Genera logo, splash, fondo de login/GRUB
+│   ├── generate-photo-cursor.sh    # Cursor = una foto recortada, sin más
 │   ├── generate-russian-sounds.sh  # Tema de sonidos con insultos en ruso (espeak-ng)
 │   ├── generate-welcome-video.sh   # Vídeo de bienvenida con efectos ridículos
 │   └── generate-iso-icon.sh        # Icono .ico + autorun.inf para la ISO/USB
@@ -56,7 +74,7 @@ rulogameros/
 Necesitas una máquina (o VM) con **Arch Linux** instalado:
 
 ```bash
-sudo pacman -S --needed archiso imagemagick ffmpeg espeak-ng libisoburn git
+sudo pacman -S --needed archiso imagemagick ffmpeg espeak-ng xorg-xcursorgen libisoburn git
 git clone <este-repo>
 cd rulogameros
 sudo ./build.sh
@@ -75,7 +93,7 @@ git clone <este-repo>
 cd rulogameros
 sudo ./scripts/setup-wheel.sh
 sudo ./scripts/setup-games.sh
-sudo ./scripts/setup-branding.sh   # logo, cursor, login/bloqueo, GRUB, sonidos, bienvenida y fondo
+sudo ./scripts/setup-branding.sh   # logo, cursor, login/bloqueo, GRUB, sonidos, bienvenida, fondo y su selector
 ```
 
 Más detalles: [`docs/WHEELS.md`](docs/WHEELS.md), [`docs/GAMES.md`](docs/GAMES.md),

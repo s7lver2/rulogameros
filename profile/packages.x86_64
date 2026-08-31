@@ -12,6 +12,7 @@ dolphin
 firefox
 plymouth
 fastfetch
+kde-cli-tools
 
 # --- Volantes / periféricos de simracing ---
 oversteer
@@ -42,6 +43,7 @@ espeak-ng
 ffmpeg
 imagemagick
 libcanberra
+xorg-xcursorgen
 
 # --- Instalador (ya suelen venir en releng, se listan por si acaso) ---
 arch-install-scripts

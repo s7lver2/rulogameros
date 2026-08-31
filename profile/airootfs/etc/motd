@@ -8,7 +8,7 @@
 
   Volante conectado  -> ejecuta: oversteer
   Instalar juegos    -> ejecuta: steam  (Assetto Corsa / Counter-Strike 2)
-  Cambiar fondo      -> ejecuta: rulogameros-set-wallpaper.sh --random
+  Cambiar fondo      -> ejecuta: rulogameros-set-wallpaper.sh --random (o --pick para elegirlo)
   Info del sistema   -> ejecuta: fastfetch  (foto real vía Kitty)
   Instalar en disco  -> ejecuta: sudo rulogameros-install
 

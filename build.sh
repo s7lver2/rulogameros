@@ -34,6 +34,9 @@ echo "==> Generando assets de branding (logo, splash, login, GRUB)..."
 echo "==> Generando icono de la ISO..."
 "$REPO_ROOT/scripts/generate-iso-icon.sh"
 
+echo "==> Generando el cursor (una foto recortada, a propósito de mierda)..."
+"$REPO_ROOT/scripts/generate-photo-cursor.sh"
+
 echo "==> Generando tema de sonidos en ruso (insultos, vía espeak-ng)..."
 "$REPO_ROOT/scripts/generate-russian-sounds.sh"
 

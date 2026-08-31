@@ -9,7 +9,17 @@ WALLPAPER_DIR="/usr/share/backgrounds/rulogameros"
 mapfile -t WALLPAPERS < <(find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' \) | sort)
 [[ ${#WALLPAPERS[@]} -gt 0 ]] || { echo "No hay fondos en $WALLPAPER_DIR" >&2; exit 1; }
 
-if [[ "${1:-}" == "--random" ]]; then
+if [[ "${1:-}" == "--pick" ]]; then
+  command -v kdialog >/dev/null 2>&1 || {
+    echo "Falta kdialog. Instálalo con: sudo pacman -S --needed kde-cli-tools" >&2
+    exit 1
+  }
+  # kdialog abre el diálogo de KDE con vista previa de miniaturas, ya
+  # colocado en la carpeta del pack de fondos.
+  CHOSEN="$(kdialog --title "Elige un fondo de RuloGamerOS" \
+    --getopenfilename "$WALLPAPER_DIR" "Imágenes (*.jpg *.jpeg *.png)" || true)"
+  [[ -n "$CHOSEN" ]] || { echo "No se eligió ningún fondo."; exit 0; }
+elif [[ "${1:-}" == "--random" ]]; then
   CHOSEN="${WALLPAPERS[RANDOM % ${#WALLPAPERS[@]}]}"
 elif [[ -n "${1:-}" && -f "$1" ]]; then
   CHOSEN="$1"
@@ -31,4 +41,4 @@ else
   exit 1
 fi
 
-echo "Listo. Usa '$0 --random' para cambiarlo por otra foto del pack."
+echo "Listo. Usa '$0 --random' para una foto al azar, o '$0 --pick' para elegirla a mano."

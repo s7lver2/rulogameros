@@ -20,7 +20,7 @@ GRUB_DIR="$REPO_ROOT/profile/airootfs/boot/grub/themes/rulogameros"
 # Foto para el logo (retrato) y foto para los fondos de pantalla completa
 # (login/bloqueo/GRUB). Se pueden pasar por parámetro para regenerar con otras fotos:
 #   ./prepare-branding.sh <foto-logo> <foto-fondo>
-LOGO_PHOTO="${1:-$WALLPAPERS_DIR/rulogameros-01.jpg}"
+LOGO_PHOTO="${1:-$WALLPAPERS_DIR/rulogameros-03.jpg}"
 BG_PHOTO="${2:-$WALLPAPERS_DIR/rulogameros-02.jpg}"
 
 mkdir -p "$PLYMOUTH_DIR" "$SDDM_DIR" "$GRUB_DIR"

@@ -21,28 +21,20 @@ command -v convert >/dev/null 2>&1 || pacman -S --needed --noconfirm imagemagick
 [[ -f "$AIROOTFS/usr/share/rulogameros/welcome/welcome.mp4" ]] \
   || "$REPO_ROOT/scripts/generate-welcome-video.sh" || echo "AVISO: no se pudo generar el vídeo de bienvenida (opcional)."
 
-echo "==> Instalando SDDM, GRUB, cursor base, fastfetch, kitty, mpv y espeak-ng..."
+echo "==> Instalando SDDM, GRUB, fastfetch, kitty, mpv, espeak-ng, xcursorgen y kdialog..."
 pacman -S --needed --noconfirm \
   sddm grub qt5-graphicaleffects qt5-quickcontrols2 \
-  fastfetch kitty ttf-jetbrains-mono-nerd mpv espeak-ng ffmpeg libcanberra
-if ! command -v yay >/dev/null 2>&1; then
-  BUILD_USER="${SUDO_USER:-root}"
-  su - "$BUILD_USER" -c '
-    set -e
-    tmp=$(mktemp -d)
-    git clone https://aur.archlinux.org/yay-bin.git "$tmp"
-    cd "$tmp" && makepkg -si --noconfirm
-  '
-fi
-BUILD_USER="${SUDO_USER:-root}"
-su - "$BUILD_USER" -c 'yay -S --needed --noconfirm bibata-cursor-theme-bin'
+  fastfetch kitty ttf-jetbrains-mono-nerd mpv espeak-ng ffmpeg libcanberra xorg-xcursorgen kde-cli-tools
+
+[[ -f "$AIROOTFS/usr/share/icons/RuloGamerOS-Cursor/cursors/default" ]] \
+  || "$REPO_ROOT/scripts/generate-photo-cursor.sh"
 
 echo "==> Copiando fondos, logo, tema de login/bloqueo y tema de GRUB..."
 cp -r "$AIROOTFS/usr/share/backgrounds/rulogameros" /usr/share/backgrounds/
 cp -r "$AIROOTFS/usr/share/sddm/themes/rulogameros" /usr/share/sddm/themes/
 cp -r "$AIROOTFS/usr/share/plymouth/themes/rulogameros" /usr/share/plymouth/themes/ 2>/dev/null || true
-mkdir -p /usr/share/icons/RuloGamerOS-Cursor
-cp "$AIROOTFS/usr/share/icons/RuloGamerOS-Cursor/index.theme" /usr/share/icons/RuloGamerOS-Cursor/
+rm -rf /usr/share/icons/RuloGamerOS-Cursor
+cp -r "$AIROOTFS/usr/share/icons/RuloGamerOS-Cursor" /usr/share/icons/
 mkdir -p /boot/grub/themes
 cp -r "$AIROOTFS/boot/grub/themes/rulogameros" /boot/grub/themes/
 
@@ -52,6 +44,8 @@ install -m755 "$AIROOTFS/usr/local/bin/rulogameros-welcome.sh" /usr/local/bin/ru
 install -m755 "$AIROOTFS/usr/local/bin/rulogameros-set-wallpaper.sh" /usr/local/bin/rulogameros-set-wallpaper.sh
 mkdir -p /etc/xdg/autostart
 cp "$AIROOTFS/etc/xdg/autostart/rulogameros-welcome.desktop" /etc/xdg/autostart/
+mkdir -p /usr/share/applications
+cp "$AIROOTFS/usr/share/applications/rulogameros-wallpaper-picker.desktop" /usr/share/applications/
 mkdir -p /usr/share/rulogameros
 cp -r "$AIROOTFS/usr/share/rulogameros/welcome" /usr/share/rulogameros/ 2>/dev/null || true
 cp -r "$AIROOTFS/usr/share/sounds/RuloGamerOS" /usr/share/sounds/ 2>/dev/null || true
@@ -128,4 +122,5 @@ Listo:
   - Cursor: cierra sesión y vuelve a entrar para que se aplique del todo.
   - GRUB: se verá en el próximo reinicio.
   - Fondo de escritorio: ya aplicado. Cámbialo con ./scripts/set-wallpaper.sh --random
+    o abre "Selector de fondos de RuloGamerOS" en el menú de aplicaciones para elegirlo a mano.
 EOF

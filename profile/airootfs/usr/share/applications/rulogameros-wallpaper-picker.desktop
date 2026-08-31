@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Selector de fondos de RuloGamerOS
+Comment=Elige a mano qué foto del pack usar como fondo de escritorio
+Exec=/usr/local/bin/rulogameros-set-wallpaper.sh --pick
+Icon=preferences-desktop-wallpaper
+Terminal=false
+Categories=Settings;DesktopSettings;
+Keywords=fondo;wallpaper;escritorio;background;
